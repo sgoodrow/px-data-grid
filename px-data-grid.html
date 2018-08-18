@@ -144,7 +144,12 @@ limitations under the License.
           group-by-column-allowed="[[_groupByColumnAllowed(_hasLocalDataProvider, _expandableRows)]]"
           is-data-column="true">
           <template class="header">
-            <px-data-grid-sorter path="[[_resolveColumnPath(column)]]">[[resolveColumnHeader(column)]]</px-data-grid-sorter>
+            <px-data-grid-sorter
+              path="[[_resolveColumnPath(column)]]"
+              default-sort-order="[[column.defaultSortOrder]]"
+              default-sort-direction="[[column.defaultSortDirection]]">
+              [[resolveColumnHeader(column)]]
+            </px-data-grid-sorter>
           </template>
 
           <template>

@@ -46,6 +46,18 @@ limitations under the License.
             */
             path: String,
 
+
+            /**
+            * Optional default sort order for the column, increasing from 0.
+            */
+            defaultSortOrder: Number,
+
+            /**
+            * Optional default sort direction for the column, see direction property
+            * for appropriate values.
+            */
+            defaultSortDirection: String,
+
             /**
             * How to sort the data.
             * Possible values are `asc` to use an ascending algorithm, `desc` to sort the data in
@@ -84,7 +96,9 @@ limitations under the License.
 
         connectedCallback() {
           super.connectedCallback();
+          this.direction = this.defaultSortDirection || null;
           this._isConnected = true;
+          this.order = this.defaultSortOrder || null;
         }
 
         disconnectedCallback() {
