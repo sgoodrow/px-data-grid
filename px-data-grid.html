@@ -2191,17 +2191,27 @@ limitations under the License.
           this._pxDataGrid._editingItem = null;
 
           const sorter = e.detail.sorter;
-
           this._removeArrayItem(this._sorters, sorter);
-          sorter._order = null;
 
           if (this.multiSort) {
             if (sorter.direction) {
+              const lastSorter = this._sorters[this._sorters.length - 1] || null;
+              const lastSorterOrder = lastSorter ? lastSorter._order : -1;
               this._sorters.push(sorter);
+
+              if (sorter._order === null) {
+                sorter._order = lastSorterOrder + 1;
+              }
+
+              this._sorters = this._sorters.sort((a, b) => { return a._order - b._order; });
+            } else {
+              sorter._order = null;
             }
 
-            this._sorters.forEach((sorter, index) => sorter._order = this._sorters.length > 1 ? index : null, this);
+            // this._sorters.forEach((sorter, index) => sorter._order = this._sorters.length > 1 ? index : null, this);
           } else {
+            sorter._order = null;
+
             const others = this._sorters.filter(s => s != sorter);
             if (sorter.direction) {
               others.forEach(sorter => {

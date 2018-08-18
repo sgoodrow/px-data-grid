@@ -96,9 +96,19 @@ limitations under the License.
 
         connectedCallback() {
           super.connectedCallback();
-          this.direction = this.defaultSortDirection || null;
+          if (this.defaultSortDirection !== null) {
+            this.direction = this.defaultSortDirection;
+          }
+          if (this.defaultSortOrder !== null) {
+            this._order = this.defaultSortOrder;
+          }
+          if (this.direction === undefined) {
+            this.direction = null;
+          }
+          if (this._order === undefined) {
+            this._order = null;
+          }
           this._isConnected = true;
-          this.order = this.defaultSortOrder || null;
         }
 
         disconnectedCallback() {
